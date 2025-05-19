@@ -64,7 +64,7 @@ function drawRandomSkull(centerX, centerY, skullW, skullH) {
   let ratio = random(0.8, 1.2);
   craniumH = skullH * 0.51 * scaleH;
   craniumW = skullW * 0.51 * scaleW;
-  jawH = skullH * 0.20 * scaleH;
+  jawH = skullH * 0.3 * scaleH;
   jawW = (skullW * 0.31 * scaleW) * ratio;
   // Randomize teeth
   teethCount = floor(random(6, 10));
@@ -159,6 +159,7 @@ function drawAbstractSkull(centerX = width/2, centerY = height/2, crackParams = 
   ellipse(centerX, centerY - 40, craniumW, craniumH);
   ellipse(centerX, centerY + 40, jawW, jawH);
   drawEyes(centerX, centerY);
+  drawNose(centerX, centerY);
   drawTeeth(centerX, centerY);
   if (crackParams) drawCraniumCrack(crackParams);
   if (crackParams2) drawCraniumCrack(crackParams2);
@@ -198,6 +199,30 @@ function drawEyes(centerX, centerY) {
   ellipse(rightEyeX, eyeY + rightYOffset, rightEyeW, rightEyeH);
   fill(skullBaseColor);
   ellipse(rightEyeX, eyeY + rightYOffset + rightSign * rightEyeOverlap + overlapYOffsetR, rightEyeW * overlapWFactorR, rightEyeH * overlapHFactorR);
+}
+
+function drawNose(centerX, centerY) {
+  // 1 in 24 chance to omit the nose
+  if (random(1) < 1/24) return;
+  // Calculate nose dimensions relative to skull size
+  let noseWidth = craniumW * random(0.12, 0.16);  // 12-16% of cranium width
+  let noseHeight = noseWidth * random(1.1, 1.3);  // 10-30% taller than wide
+  let noseY = eyeY + random(40, 60);  // Position below eyes
+  
+  // Draw triangle (pointing up)
+  fill(skullFeatureColor);
+  noStroke();
+  triangle(
+    centerX, noseY - noseHeight,  // top point
+    centerX - noseWidth/2, noseY,  // bottom left
+    centerX + noseWidth/2, noseY   // bottom right
+  );
+  
+  // Draw overlapping arc
+  fill(skullBaseColor);
+  noStroke();
+  let arcYOffset = 20 * random(0.2, 0.9); // 3-8% of nose height lower
+  arc(centerX, noseY + 2, noseWidth + 5, noseWidth + arcYOffset, PI, TWO_PI);
 }
 
 function drawTeeth(centerX, centerY) {
