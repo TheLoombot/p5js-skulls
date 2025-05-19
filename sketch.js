@@ -67,8 +67,8 @@ function drawRandomSkull(centerX, centerY, skullW, skullH) {
   teethCount = floor(random(6, 10));
   teethLineW = random(0.65, 0.85) * jawW;
   // Randomize eyes
-  let baseEyeW = craniumW * random(0.16, 0.22);
-  let baseEyeH = craniumH * random(0.19, 0.27);
+  let baseEyeW = 40 * random(0.9, 1.1);  // base width of 45 pixels with ±10% variation
+  let baseEyeH = 35 * random(0.9, 1.1);  // base height of 35 pixels with ±10% variation
   leftEyeW = baseEyeW * random(0.95, 1.05);
   leftEyeH = baseEyeH * random(0.95, 1.05);
   rightEyeW = baseEyeW * random(0.95, 1.05);
@@ -78,7 +78,7 @@ function drawRandomSkull(centerX, centerY, skullW, skullH) {
   let eyeXSpread = craniumW * random(0.20, 0.24);
   leftEyeX = centerX - eyeXSpread;
   rightEyeX = centerX + eyeXSpread;
-  eyeY = centerY - 40 + random(-2, 2); // small vertical jitter
+  eyeY = centerY - 50 + random(-5, 10); // small vertical jitter
   eyesFaceUp = random([true, false]);
   eyesMismatched = random(1) < 0.05; 
   // Randomize tooth gaps (per-tooth, extremely rare)
