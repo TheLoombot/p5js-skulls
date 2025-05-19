@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Abstract Skull</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: #f7f7f7;
+      min-height: 100vh;
+      margin: 0;
+      font-family: 'Inter', Arial, sans-serif;
+    }
+    .center-viewport {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    h1 {
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: #222;
+      margin-bottom: 24px;
+    }
+    .controls {
+      margin-bottom: 24px;
+    }
+    button {
+      background: #222;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 28px;
+      font-size: 1.1rem;
+      font-family: inherit;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      cursor: pointer;
+      transition: background 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    button:hover {
+      background: #444;
+    }
+    #sketch-holder {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+      border-radius: 16px;
+      background: #fff;
+      padding: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div class="center-viewport">
+    <h1>Abstract Skull</h1>
+    <div class="controls">
+      <button onclick="randomizeSkull()">Randomize</button>
+    </div>
+    <div id="sketch-holder"></div>
+  </div>
+  <script src="libs/p5.min.js"></script>
+  <script src="sketch.js"></script>
+</body>
+</html> 
