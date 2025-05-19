@@ -13,6 +13,7 @@ const BASE_JAW_H = 70;
 
 let craniumW, craniumH, jawW, jawH;
 let teethCount, teethLineW;
+let outlineWidth; // Add variable for random outline width
 
 // Eye randomization variables
 let leftEyeW, leftEyeH, rightEyeW, rightEyeH;
@@ -54,6 +55,8 @@ function drawRandomSkull(centerX, centerY, skullW, skullH) {
   skullBaseColor = random(grayShades);
   let featureChoices = grayShades.filter(c => c !== skullBaseColor);
   skullFeatureColor = random(featureChoices);
+  // Randomize outline width
+  outlineWidth = random(5, 15);
   // Randomize overall skull size
   let scaleH = random(0.8, 1.2);
   let scaleW = random(0.8, 1.2);
@@ -142,10 +145,18 @@ function generateCrack(centerX, centerY, craniumW, craniumH) {
 
 function drawAbstractSkull(centerX = width/2, centerY = height/2, crackParams = null, crackParams2 = null) {
   noStroke();
-  // Cranium
+  // Pick outline color (different from base and feature colors)
+  let outlineChoices = grayShades.filter(c => c !== skullBaseColor && c !== skullFeatureColor);
+  let outlineColor = random(outlineChoices);
+  
+  // Draw outline ellipses (slightly larger and behind)
+  fill(outlineColor);
+  ellipse(centerX, centerY - 40, craniumW + outlineWidth, craniumH + outlineWidth); // Cranium outline
+  ellipse(centerX, centerY + 40, jawW + outlineWidth, jawH + outlineWidth); // Jaw outline
+  
+  // Original skull shapes
   fill(skullBaseColor);
   ellipse(centerX, centerY - 40, craniumW, craniumH);
-  // Jaw (smaller, overlapping ellipse)
   ellipse(centerX, centerY + 40, jawW, jawH);
   drawEyes(centerX, centerY);
   drawTeeth(centerX, centerY);
