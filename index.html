@@ -5,32 +5,74 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Skullbois</title>
   <style>
+    * { box-sizing: border-box; }
     html, body {
-      height: 100%;
       margin: 0;
       padding: 0;
     }
     body {
       background: #f7f7f7;
-      min-height: 100vh;
       margin: 0;
       font-family: 'Inter', Arial, sans-serif;
+      text-align: center;
     }
-    .center-viewport {
-      min-height: 100vh;
+    .main-layout {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 40px;
+    }
+    #sketch-holder {
+      flex-shrink: 0;
+      max-width: 900px;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+      border-radius: 16px;
+      background: #fff;
+      padding: 16px;
+    }
+    .side-controls {
+      background: #fff;
+      border-radius: 24px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+      padding: 16px 16px;
+      min-width: 240px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      margin: 0;
+      border: 1.5px solid #ededed;
+    }
+    .side-controls button {
+      margin-bottom: 28px;
+      width: 100%;
+    }
+    .slider-group {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+    .slider-group label {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
     }
     h1 {
       font-weight: 600;
       letter-spacing: 0.04em;
       color: #222;
-      margin-bottom: 24px;
-    }
-    .controls {
-      margin-bottom: 24px;
+      margin-bottom: 32px;
+      margin-top: 32px;
+      text-align: center;
     }
     button {
       background: #222;
@@ -49,26 +91,37 @@
     button:hover {
       background: #444;
     }
-    #sketch-holder {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
-      border-radius: 16px;
-      background: #fff;
-      padding: 24px;
+    .source-link {
+      display: block;
+      text-align: center;
+      font-size: 0.95rem;
+      color: #888;
+      margin: 32px auto 8px auto;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .source-link:hover {
+      color: #222;
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <div class="center-viewport">
-    <h1>Skullbois</h1>
-    <div class="controls">
-      <button onclick="randomizeSkull()">Randomize</button>
-    </div>
+  <h1>Skullbois</h1>
+  <div class="main-layout">
     <div id="sketch-holder"></div>
+    <div class="side-controls">
+      <button onclick="randomizeSkull()">Randomize</button>
+      <div class="slider-group">
+        <label>Jaw Height<br><input type="range" id="jaw-height-slider" min="0.15" max="0.5" step="0.01" value="0.3"></label>
+        <label>Cranium Width<br><input type="range" id="cranium-width-slider" min="0.4" max="0.7" step="0.01" value="0.51"></label>
+        <label>Cranium Height<br><input type="range" id="cranium-height-slider" min="0.4" max="0.7" step="0.01" value="0.51"></label>
+        <label>Number of Teeth<br><input type="range" id="teeth-slider" min="6" max="16" step="1" value="10"></label>
+      </div>
+    </div>
   </div>
   <script src="libs/p5.min.js"></script>
   <script src="sketch.js"></script>
+  <a class="source-link" href="https://github.com/TheLoombot/p5js-skulls" target="_blank" rel="noopener">View project source on GitHub</a>
 </body>
 </html> 

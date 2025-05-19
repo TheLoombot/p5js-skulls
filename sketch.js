@@ -25,10 +25,26 @@ let eyesMismatched; // true if one up, one down
 // Only tooth gaps feature
 let toothGapIndices = [];
 
+// Sliders
+let jawHeightSlider, craniumWidthSlider, craniumHeightSlider, teethSlider;
+
 function setup() {
-  let canvas = createCanvas(900, 600); // Smaller canvas for 3x2 grid
+  let canvas = createCanvas(900, 620); // Increased height for a taller canvas
   canvas.parent('sketch-holder');
   window.randomizeSkull = randomizeSkullsGrid;
+
+  // Get slider elements
+  jawHeightSlider = select('#jaw-height-slider');
+  craniumWidthSlider = select('#cranium-width-slider');
+  craniumHeightSlider = select('#cranium-height-slider');
+  teethSlider = select('#teeth-slider');
+
+  // Redraw on slider input
+  if (jawHeightSlider) jawHeightSlider.input(randomizeSkullsGrid);
+  if (craniumWidthSlider) craniumWidthSlider.input(randomizeSkullsGrid);
+  if (craniumHeightSlider) craniumHeightSlider.input(randomizeSkullsGrid);
+  if (teethSlider) teethSlider.input(randomizeSkullsGrid);
+
   randomizeSkullsGrid();
 }
 
@@ -60,14 +76,18 @@ function drawRandomSkull(centerX, centerY, skullW, skullH) {
   // Randomize overall skull size
   let scaleH = random(0.8, 1.2);
   let scaleW = random(0.8, 1.2);
-  // Randomize cranium to jaw width ratio
-  let ratio = random(0.8, 1.2);
-  craniumH = skullH * 0.51 * scaleH;
-  craniumW = skullW * 0.51 * scaleW;
-  jawH = skullH * 0.3 * scaleH;
-  jawW = (skullW * 0.31 * scaleW) * ratio;
-  // Randomize teeth
-  teethCount = floor(random(6, 10));
+  // Use slider values if present, otherwise random
+  let jawHeightRatio = jawHeightSlider ? float(jawHeightSlider.value()) : random(0.2, 0.4);
+  let craniumWidthRatio = craniumWidthSlider ? float(craniumWidthSlider.value()) : random(0.45, 0.6);
+  let craniumHeightRatio = craniumHeightSlider ? float(craniumHeightSlider.value()) : random(0.45, 0.6);
+  let teethCountValue = teethSlider ? int(teethSlider.value()) : floor(random(6, 10));
+
+  craniumH = skullH * craniumHeightRatio * scaleH;
+  craniumW = skullW * craniumWidthRatio * scaleW;
+  jawH = skullH * jawHeightRatio * scaleH;
+  jawW = (skullW * 0.31 * scaleW) * random(0.8, 1.2);
+  // Use slider teeth count
+  teethCount = teethCountValue;
   teethLineW = random(0.65, 0.85) * jawW;
   // Randomize eyes
   let baseEyeW = 40 * random(0.9, 1.1);  // base width of 45 pixels with ±10% variation
