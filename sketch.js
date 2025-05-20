@@ -276,10 +276,11 @@ function drawTeeth(centerX, centerY) {
         push();
         translate(tx, rectY + rectH/2);
         rotate(skew);
-        stroke(skullBaseColor);
-        strokeWeight(2.2);
-        fill(skullFeatureColor);
-        rect(-rectW/2, -rectH/2, rectW, rectH);
+        // Reverse colors: stroke is feature, fill is base
+        stroke(skullFeatureColor);
+        strokeWeight(1);
+        fill(skullBaseColor);
+        rect(-rectW/2, -rectH/2, rectW, rectH, 1);
         pop();
       }
     }
