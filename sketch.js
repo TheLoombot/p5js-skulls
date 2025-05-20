@@ -175,12 +175,26 @@ function drawAbstractSkull(centerX = width/2, centerY = height/2, crackParams = 
   // Draw outline ellipses (slightly larger and behind)
   fill(outlineColor);
   ellipse(centerX, centerY - 40, craniumW + outlineWidth, craniumH + outlineWidth); // Cranium outline
-  ellipse(centerX, centerY + 40, jawW + outlineWidth, jawH + outlineWidth); // Jaw outline
+  // Jaw outline: random ellipse or rect
+  let useRectJaw = random([true, false]);
+  if (useRectJaw) {
+    rectMode(CENTER);
+    rect(centerX, centerY + 40, jawW + outlineWidth, jawH + outlineWidth, 16);
+    rectMode(CORNER);
+  } else {
+    ellipse(centerX, centerY + 40, jawW + outlineWidth, jawH + outlineWidth); // Jaw outline ellipse
+  }
   
   // Original skull shapes
   fill(skullBaseColor);
   ellipse(centerX, centerY - 40, craniumW, craniumH);
-  ellipse(centerX, centerY + 40, jawW, jawH);
+  if (useRectJaw) {
+    rectMode(CENTER);
+    rect(centerX, centerY + 40, jawW, jawH, 12);
+    rectMode(CORNER);
+  } else {
+    ellipse(centerX, centerY + 40, jawW, jawH);
+  }
   drawEyes(centerX, centerY);
   drawNose(centerX, centerY);
   drawTeeth(centerX, centerY);
