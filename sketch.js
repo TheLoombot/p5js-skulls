@@ -6,6 +6,14 @@ const palettes = {
   ],
   neon: [
     '#ff00cc', '#00ffe7', '#fffb00', '#ff6f00', '#7cfc00', '#6a00ff'
+  ],
+  earth: [
+    '#a0522d', // sienna
+    '#c19a6b', // light brown
+    '#556b2f', // olive green
+    '#8fbc8f', // sage
+    '#deb887', // tan
+    '#3e2723'  // dark brown
   ]
 };
 let grayShades = palettes.grays;
