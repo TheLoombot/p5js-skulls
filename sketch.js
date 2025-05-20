@@ -38,11 +38,12 @@ function setup() {
   canvas.parent('sketch-holder');
   window.randomizeSkull = randomizeSkullsGrid;
 
-  // Attach event listeners for HTML sliders
-  document.getElementById('jaw-height-slider').addEventListener('input', randomizeSkullsGrid);
-  document.getElementById('cranium-width-slider').addEventListener('input', randomizeSkullsGrid);
-  document.getElementById('cranium-height-slider').addEventListener('input', randomizeSkullsGrid);
-  document.getElementById('teeth-slider').addEventListener('input', randomizeSkullsGrid);
+  // Attach event listeners for radio groups
+  ['jaw-height', 'cranium-width', 'cranium-height', 'teeth-count'].forEach(name => {
+    document.querySelectorAll(`input[name="${name}"]`).forEach(radio => {
+      radio.addEventListener('change', randomizeSkullsGrid);
+    });
+  });
 
   // Palette radio buttons
   document.querySelectorAll('input[name="palette"]').forEach(radio => {
@@ -54,6 +55,10 @@ function setup() {
   });
 
   randomizeSkullsGrid();
+}
+
+function getRadioValue(name) {
+  return document.querySelector(`input[name="${name}"]:checked`).value;
 }
 
 function randomizeSkullsGrid() {
@@ -85,22 +90,31 @@ function drawRandomSkull(centerX, centerY, skullW, skullH) {
   let scaleH = random(0.8, 1.2);
   let scaleW = random(0.8, 1.2);
 
-  // Read slider values directly from DOM
-  let jawHeightRatio = parseFloat(document.getElementById('jaw-height-slider').value);
-  let craniumWidthRatio = parseFloat(document.getElementById('cranium-width-slider').value);
-  let craniumHeightRatio = parseFloat(document.getElementById('cranium-height-slider').value);
-  let teethSliderValue = parseFloat(document.getElementById('teeth-slider').value);
+  // Jaw Height
+  let jawHeightValue = getRadioValue('jaw-height');
+  let jawHeightRatio = jawHeightValue === 'small' ? 0.15 : jawHeightValue === 'medium' ? 0.325 : 0.5;
+  // Cranium Width
+  let craniumWidthValue = getRadioValue('cranium-width');
+  let craniumWidthRatio = craniumWidthValue === 'small' ? 0.4 : craniumWidthValue === 'medium' ? 0.55 : 0.7;
+  // Cranium Height
+  let craniumHeightValue = getRadioValue('cranium-height');
+  let craniumHeightRatio = craniumHeightValue === 'small' ? 0.4 : craniumHeightValue === 'medium' ? 0.55 : 0.7;
+  // Teeth Count
+  let teethCountValue = getRadioValue('teeth-count');
+  let minTeeth, maxTeeth;
+  if (teethCountValue === 'small') {
+    minTeeth = 4; maxTeeth = 6;
+  } else if (teethCountValue === 'medium') {
+    minTeeth = 6; maxTeeth = 8;
+  } else {
+    minTeeth = 8; maxTeeth = 10;
+  }
+  teethCount = floor(random(minTeeth, maxTeeth + 1));
 
   craniumH = skullH * craniumHeightRatio * scaleH;
   craniumW = skullW * craniumWidthRatio * scaleW;
   jawH = skullH * jawHeightRatio * scaleH;
   jawW = (skullW * 0.31 * scaleW) * random(0.8, 1.2);
-
-  // Teeth count logic: interpolate range based on slider
-  let t = (teethSliderValue - 6) / (16 - 6); // normalize 0-1
-  let minTeeth = lerp(4, 6, t);
-  let maxTeeth = lerp(6, 9, t);
-  teethCount = floor(random(minTeeth, maxTeeth + 1));
   teethLineW = random(0.65, 0.85) * jawW;
   // Randomize eyes
   let baseEyeW = 40 * random(0.9, 1.1);  // base width of 45 pixels with ±10% variation
