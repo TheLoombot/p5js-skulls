@@ -33,17 +33,11 @@ function setup() {
   canvas.parent('sketch-holder');
   window.randomizeSkull = randomizeSkullsGrid;
 
-  // Get slider elements
-  jawHeightSlider = select('#jaw-height-slider');
-  craniumWidthSlider = select('#cranium-width-slider');
-  craniumHeightSlider = select('#cranium-height-slider');
-  teethSlider = select('#teeth-slider');
-
-  // Redraw on slider input
-  if (jawHeightSlider) jawHeightSlider.input(randomizeSkullsGrid);
-  if (craniumWidthSlider) craniumWidthSlider.input(randomizeSkullsGrid);
-  if (craniumHeightSlider) craniumHeightSlider.input(randomizeSkullsGrid);
-  if (teethSlider) teethSlider.input(randomizeSkullsGrid);
+  // Attach event listeners for HTML sliders
+  document.getElementById('jaw-height-slider').addEventListener('input', randomizeSkullsGrid);
+  document.getElementById('cranium-width-slider').addEventListener('input', randomizeSkullsGrid);
+  document.getElementById('cranium-height-slider').addEventListener('input', randomizeSkullsGrid);
+  document.getElementById('teeth-slider').addEventListener('input', randomizeSkullsGrid);
 
   randomizeSkullsGrid();
 }
@@ -76,11 +70,12 @@ function drawRandomSkull(centerX, centerY, skullW, skullH) {
   // Randomize overall skull size
   let scaleH = random(0.8, 1.2);
   let scaleW = random(0.8, 1.2);
-  // Use slider values if present, otherwise random
-  let jawHeightRatio = jawHeightSlider ? float(jawHeightSlider.value()) : random(0.2, 0.4);
-  let craniumWidthRatio = craniumWidthSlider ? float(craniumWidthSlider.value()) : random(0.45, 0.6);
-  let craniumHeightRatio = craniumHeightSlider ? float(craniumHeightSlider.value()) : random(0.45, 0.6);
-  let teethCountValue = teethSlider ? int(teethSlider.value()) : floor(random(6, 10));
+
+  // Read slider values directly from DOM
+  let jawHeightRatio = parseFloat(document.getElementById('jaw-height-slider').value);
+  let craniumWidthRatio = parseFloat(document.getElementById('cranium-width-slider').value);
+  let craniumHeightRatio = parseFloat(document.getElementById('cranium-height-slider').value);
+  let teethCountValue = parseInt(document.getElementById('teeth-slider').value, 10);
 
   craniumH = skullH * craniumHeightRatio * scaleH;
   craniumW = skullW * craniumWidthRatio * scaleW;
