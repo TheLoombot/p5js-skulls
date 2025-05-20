@@ -75,14 +75,18 @@ function drawRandomSkull(centerX, centerY, skullW, skullH) {
   let jawHeightRatio = parseFloat(document.getElementById('jaw-height-slider').value);
   let craniumWidthRatio = parseFloat(document.getElementById('cranium-width-slider').value);
   let craniumHeightRatio = parseFloat(document.getElementById('cranium-height-slider').value);
-  let teethCountValue = parseInt(document.getElementById('teeth-slider').value, 10);
+  let teethSliderValue = parseFloat(document.getElementById('teeth-slider').value);
 
   craniumH = skullH * craniumHeightRatio * scaleH;
   craniumW = skullW * craniumWidthRatio * scaleW;
   jawH = skullH * jawHeightRatio * scaleH;
   jawW = (skullW * 0.31 * scaleW) * random(0.8, 1.2);
-  // Use slider teeth count
-  teethCount = teethCountValue;
+
+  // Teeth count logic: interpolate range based on slider
+  let t = (teethSliderValue - 6) / (16 - 6); // normalize 0-1
+  let minTeeth = lerp(4, 6, t);
+  let maxTeeth = lerp(6, 9, t);
+  teethCount = floor(random(minTeeth, maxTeeth + 1));
   teethLineW = random(0.65, 0.85) * jawW;
   // Randomize eyes
   let baseEyeW = 40 * random(0.9, 1.1);  // base width of 45 pixels with ±10% variation
