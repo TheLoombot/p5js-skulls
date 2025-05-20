@@ -1,8 +1,12 @@
 let skullBaseColor;
 let skullFeatureColor;
 const grayShades = [
-  '#f7f7f7', '#ededed', '#e0e0e0', '#cccccc', '#b3b3b3', '#a0a0a0',
-  '#8c8c8c', '#787878', '#646464', '#505050', '#3c3c3c', '#222222'
+  '#f7f7f7', // lightest
+  '#cccccc',
+  '#a0a0a0',
+  '#787878',
+  '#505050',
+  '#222222'  // darkest
 ];
 
 // Base skull dimensions
@@ -261,7 +265,9 @@ function drawTeeth(centerX, centerY) {
     let rectW = toothSpacing * 0.9; // small gap between rects
     let vTop = y - lineH/2;
     for (let row = 0; row < nRows; row++) {
-      let rectY = vTop + row * (lineH / nRows);
+      // Add extra vertical spacing between rows
+      let rowSpacing = random(0,3); // pixels of extra space between rows
+      let rectY = vTop + row * (lineH / nRows) + row * rowSpacing;
       for (let col = 1; col <= nCols; col++) {
         // Gaps are now per-tooth (row, col)
         let toothKey = `${row},${col}`;
