@@ -1,13 +1,14 @@
 let skullBaseColor;
 let skullFeatureColor;
-const grayShades = [
-  '#f7f7f7', // lightest
-  '#cccccc',
-  '#a0a0a0',
-  '#787878',
-  '#505050',
-  '#222222'  // darkest
-];
+const palettes = {
+  grays: [
+    '#f7f7f7', '#cccccc', '#a0a0a0', '#787878', '#505050', '#222222'
+  ],
+  neon: [
+    '#ff00cc', '#00ffe7', '#fffb00', '#ff6f00', '#7cfc00', '#6a00ff'
+  ]
+};
+let grayShades = palettes.grays;
 
 // Base skull dimensions
 const BASE_CRANIUM_W = 180;
@@ -42,6 +43,15 @@ function setup() {
   document.getElementById('cranium-width-slider').addEventListener('input', randomizeSkullsGrid);
   document.getElementById('cranium-height-slider').addEventListener('input', randomizeSkullsGrid);
   document.getElementById('teeth-slider').addEventListener('input', randomizeSkullsGrid);
+
+  // Palette radio buttons
+  document.querySelectorAll('input[name="palette"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      const selected = document.querySelector('input[name="palette"]:checked').value;
+      grayShades = palettes[selected];
+      randomizeSkullsGrid();
+    });
+  });
 
   randomizeSkullsGrid();
 }

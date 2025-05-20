@@ -104,6 +104,76 @@
       color: #222;
       text-decoration: underline;
     }
+    .palette-selector-group {
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 8px;
+      background: #f4f4f7;
+      border-radius: 14px;
+      padding: 14px 20px 12px 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      width: 100%;
+      min-width: 0;
+    }
+    .palette-label {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: #888;
+      margin-bottom: 4px;
+      text-align: center;
+      letter-spacing: 0.01em;
+    }
+    .palette-radio {
+      display: flex;
+      align-items: center;
+      margin-bottom: 0;
+      cursor: pointer;
+      font-size: 1.18rem;
+      font-weight: 500;
+      color: #333;
+      border-radius: 12px;
+      transition: background 0.2s;
+      padding: 0;
+      width: 100%;
+      justify-content: center;
+    }
+    .palette-radio input[type="radio"] {
+      display: none;
+    }
+    .palette-radio-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      padding: 8px 12px;
+      border-radius: 10px;
+      background: none;
+      transition: background 0.2s, color 0.2s;
+      font-size: 1.08rem;
+      font-weight: 600;
+      justify-content: flex-start;
+    }
+    .palette-radio input[type="radio"]:checked + .palette-radio-btn {
+      background: #bcbcff;
+      color: #222;
+      font-weight: 700;
+      box-shadow: 0 2px 8px rgba(120,120,255,0.10);
+    }
+    .palette-radio-btn .palette-swatch {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      margin-right: 4px;
+      border: 2px solid #e0e0e0;
+      background: #ccc;
+    }
+    .palette-radio input[type="radio"]:checked + .palette-radio-btn .palette-swatch {
+      border: 2px solid #6a00ff;
+      background: #bcbcff;
+    }
   </style>
 </head>
 <body>
@@ -117,6 +187,17 @@
         <label>Cranium Width<br><input type="range" id="cranium-width-slider" min="0.4" max="0.7" step="0.01" value="0.51"></label>
         <label>Cranium Height<br><input type="range" id="cranium-height-slider" min="0.4" max="0.7" step="0.01" value="0.51"></label>
         <label>Number of Teeth<br><input type="range" id="teeth-slider" min="6" max="16" step="1" value="10"></label>
+      </div>
+      <div class="palette-selector-group">
+        <div class="palette-label">Color Palette</div>
+        <label class="palette-radio">
+          <input type="radio" name="palette" value="grays" id="palette-grays" checked>
+          <span class="palette-radio-btn"><span class="palette-swatch" style="background:#cccccc;"></span>Grays</span>
+        </label>
+        <label class="palette-radio">
+          <input type="radio" name="palette" value="neon" id="palette-neon">
+          <span class="palette-radio-btn"><span class="palette-swatch" style="background:linear-gradient(135deg,#ff00cc 0%,#fffb00 50%,#00ffe7 100%);"></span>Neon</span>
+        </label>
       </div>
     </div>
   </div>
