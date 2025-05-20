@@ -230,12 +230,48 @@ function drawEyes(centerX, centerY) {
   fill(skullFeatureColor);
   ellipse(leftEyeX, eyeY + leftYOffset, leftEyeW, leftEyeH);
   fill(skullBaseColor);
-  ellipse(leftEyeX, eyeY + leftYOffset + leftSign * leftEyeOverlap + overlapYOffsetL, leftEyeW * overlapWFactorL, leftEyeH * overlapHFactorL);
+  if (leftSign === 1) {
+    // Overlap is above: draw bottom half arc
+    arc(
+      leftEyeX,
+      eyeY + leftYOffset + leftSign * leftEyeOverlap + overlapYOffsetL,
+      leftEyeW * overlapWFactorL,
+      leftEyeH * overlapHFactorL,
+      PI, TWO_PI
+    );
+  } else {
+    // Overlap is below: draw top half arc
+    arc(
+      leftEyeX,
+      eyeY + leftYOffset + leftSign * leftEyeOverlap + overlapYOffsetL,
+      leftEyeW * overlapWFactorL,
+      leftEyeH * overlapHFactorL,
+      0, PI
+    );
+  }
   // Right eye
   fill(skullFeatureColor);
   ellipse(rightEyeX, eyeY + rightYOffset, rightEyeW, rightEyeH);
   fill(skullBaseColor);
-  ellipse(rightEyeX, eyeY + rightYOffset + rightSign * rightEyeOverlap + overlapYOffsetR, rightEyeW * overlapWFactorR, rightEyeH * overlapHFactorR);
+  if (rightSign === 1) {
+    // Overlap is above: draw bottom half arc
+    arc(
+      rightEyeX,
+      eyeY + rightYOffset + rightSign * rightEyeOverlap + overlapYOffsetR,
+      rightEyeW * overlapWFactorR,
+      rightEyeH * overlapHFactorR,
+      PI, TWO_PI
+    );
+  } else {
+    // Overlap is below: draw top half arc
+    arc(
+      rightEyeX,
+      eyeY + rightYOffset + rightSign * rightEyeOverlap + overlapYOffsetR,
+      rightEyeW * overlapWFactorR,
+      rightEyeH * overlapHFactorR,
+      0, PI
+    );
+  }
 }
 
 function drawNose(centerX, centerY) {
