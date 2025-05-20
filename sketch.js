@@ -276,11 +276,30 @@ function drawTeeth(centerX, centerY) {
         push();
         translate(tx, rectY + rectH/2);
         rotate(skew);
-        // Reverse colors: stroke is feature, fill is base
+        fill(skullBaseColor);
+        noStroke();
+        rect(-rectW/2, -rectH/2, rectW, rectH, 1);
         stroke(skullFeatureColor);
         strokeWeight(1);
-        fill(skullBaseColor);
-        rect(-rectW/2, -rectH/2, rectW, rectH, 1);
+        beginShape(LINES);
+        if (row === 0) {
+          // Top row: omit upper edge
+          // Left edge
+          vertex(-rectW/2, -rectH/2); vertex(-rectW/2, rectH/2);
+          // Bottom edge
+          vertex(-rectW/2, rectH/2); vertex(rectW/2, rectH/2);
+          // Right edge
+          vertex(rectW/2, rectH/2); vertex(rectW/2, -rectH/2);
+        } else {
+          // Bottom row: omit lower edge
+          // Left edge
+          vertex(-rectW/2, -rectH/2); vertex(-rectW/2, rectH/2);
+          // Top edge
+          vertex(-rectW/2, -rectH/2); vertex(rectW/2, -rectH/2);
+          // Right edge
+          vertex(rectW/2, -rectH/2); vertex(rectW/2, rectH/2);
+        }
+        endShape();
         pop();
       }
     }
