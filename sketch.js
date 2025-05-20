@@ -265,7 +265,7 @@ function drawNose(centerX, centerY) {
 function drawTeeth(centerX, centerY) {
   // Teeth grid parameters
   let cx = centerX;
-  let cy = centerY + 40;
+  let cy = centerY + 50; // moved teeth down by 10 pixels
   let lineW = teethLineW;
   let lineH = jawH * 0.32; // vertical lines height, fits inside jaw
   let y = cy; // horizontal line y
