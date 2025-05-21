@@ -246,19 +246,58 @@
   <div class="main-layout">
     <div id="sketch-holder"></div>
     <div class="controls-stack">
-      <button class="main-randomize-btn" onclick="randomizeSkull()">Randomize</button>
+      <button class="main-randomize-btn" onclick="randomizeSkull()">More Skulls</button>
+      <div class="palette-selector-group">
+        <div class="palette-label">Colors</div>
+        <label class="palette-radio">
+          <input type="radio" name="palette" value="grays" id="palette-grays">
+          <span class="palette-radio-btn">
+            <span class="palette-swatch" style="background:#cccccc;"></span>
+            Grays
+          </span>
+        </label>
+        <label class="palette-radio">
+          <input type="radio" name="palette" value="neon" id="palette-neon" checked>
+          <span class="palette-radio-btn">
+            <span class="palette-swatch" style="background:linear-gradient(135deg,#ff00cc 0%,#fffb00 50%,#00ffe7 100%);"></span>
+            Neon
+          </span>
+        </label>
+        <label class="palette-radio">
+          <input type="radio" name="palette" value="earth" id="palette-earth">
+          <span class="palette-radio-btn">
+            <span class="palette-swatch" style="background:linear-gradient(135deg,#a0522d 0%,#8fbc8f 50%,#3e2723 100%);"></span>
+            Earth Tones
+          </span>
+        </label>
+      </div>
       <div class="radio-group">
-        <div class="radio-label">Jaw Height</div>
+        <div class="radio-label">Number of Teeth</div>
         <label class="radio-option">
-          <input type="radio" name="jaw-height" value="small">
+          <input type="radio" name="teeth-count" value="small">
+          <span class="radio-btn">Few</span>
+        </label>
+        <label class="radio-option">
+          <input type="radio" name="teeth-count" value="medium" checked>
+          <span class="radio-btn">Many</span>
+        </label>
+        <label class="radio-option">
+          <input type="radio" name="teeth-count" value="large">
+          <span class="radio-btn">Too Many</span>
+        </label>
+      </div>
+      <div class="radio-group">
+        <div class="radio-label">Cranium Height</div>
+        <label class="radio-option">
+          <input type="radio" name="cranium-height" value="small">
           <span class="radio-btn">Small</span>
         </label>
         <label class="radio-option">
-          <input type="radio" name="jaw-height" value="medium" checked>
+          <input type="radio" name="cranium-height" value="medium" checked>
           <span class="radio-btn">Medium</span>
         </label>
         <label class="radio-option">
-          <input type="radio" name="jaw-height" value="large">
+          <input type="radio" name="cranium-height" value="large">
           <span class="radio-btn">Large</span>
         </label>
       </div>
@@ -278,57 +317,18 @@
         </label>
       </div>
       <div class="radio-group">
-        <div class="radio-label">Cranium Height</div>
+        <div class="radio-label">Jaw Height</div>
         <label class="radio-option">
-          <input type="radio" name="cranium-height" value="small">
+          <input type="radio" name="jaw-height" value="small">
           <span class="radio-btn">Small</span>
         </label>
         <label class="radio-option">
-          <input type="radio" name="cranium-height" value="medium" checked>
+          <input type="radio" name="jaw-height" value="medium" checked>
           <span class="radio-btn">Medium</span>
         </label>
         <label class="radio-option">
-          <input type="radio" name="cranium-height" value="large">
+          <input type="radio" name="jaw-height" value="large">
           <span class="radio-btn">Large</span>
-        </label>
-      </div>
-      <div class="radio-group">
-        <div class="radio-label">Number of Teeth</div>
-        <label class="radio-option">
-          <input type="radio" name="teeth-count" value="small">
-          <span class="radio-btn">Few</span>
-        </label>
-        <label class="radio-option">
-          <input type="radio" name="teeth-count" value="medium" checked>
-          <span class="radio-btn">Many</span>
-        </label>
-        <label class="radio-option">
-          <input type="radio" name="teeth-count" value="large">
-          <span class="radio-btn">Too Many</span>
-        </label>
-      </div>
-      <div class="palette-selector-group">
-        <div class="palette-label">Color Palette</div>
-        <label class="palette-radio">
-          <input type="radio" name="palette" value="grays" id="palette-grays" checked>
-          <span class="palette-radio-btn">
-            <span class="palette-swatch" style="background:#cccccc;"></span>
-            Grays
-          </span>
-        </label>
-        <label class="palette-radio">
-          <input type="radio" name="palette" value="neon" id="palette-neon">
-          <span class="palette-radio-btn">
-            <span class="palette-swatch" style="background:linear-gradient(135deg,#ff00cc 0%,#fffb00 50%,#00ffe7 100%);"></span>
-            Neon
-          </span>
-        </label>
-        <label class="palette-radio">
-          <input type="radio" name="palette" value="earth" id="palette-earth">
-          <span class="palette-radio-btn">
-            <span class="palette-swatch" style="background:linear-gradient(135deg,#a0522d 0%,#8fbc8f 50%,#3e2723 100%);"></span>
-            Earth Tones
-          </span>
         </label>
       </div>
     </div>

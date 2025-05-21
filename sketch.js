@@ -16,7 +16,7 @@ const palettes = {
     '#3e2723'  // dark brown
   ]
 };
-let grayShades = palettes.grays;
+let grayShades = palettes.neon;
 
 // Base skull dimensions
 const BASE_CRANIUM_W = 180;
@@ -41,27 +41,68 @@ let toothGapIndices = [];
 // Sliders
 let jawHeightSlider, craniumWidthSlider, craniumHeightSlider, teethSlider;
 
+// Helper to save all settings
+function saveSettings() {
+  const settings = {
+    palette: document.querySelector('input[name="palette"]:checked').value,
+    teeth: document.querySelector('input[name="teeth-count"]:checked').value,
+    craniumHeight: document.querySelector('input[name="cranium-height"]:checked').value,
+    craniumWidth: document.querySelector('input[name="cranium-width"]:checked').value,
+    jawHeight: document.querySelector('input[name="jaw-height"]:checked').value,
+  };
+  localStorage.setItem('skullboisSettings', JSON.stringify(settings));
+}
+
+// Helper to restore all settings
+function restoreSettings() {
+  const settings = JSON.parse(localStorage.getItem('skullboisSettings'));
+  if (!settings) return;
+  if (settings.palette) {
+    const el = document.getElementById(`palette-${settings.palette}`);
+    if (el) el.checked = true;
+  }
+  if (settings.teeth) {
+    const el = document.querySelector(`input[name="teeth-count"][value="${settings.teeth}"]`);
+    if (el) el.checked = true;
+  }
+  if (settings.craniumHeight) {
+    const el = document.querySelector(`input[name="cranium-height"][value="${settings.craniumHeight}"]`);
+    if (el) el.checked = true;
+  }
+  if (settings.craniumWidth) {
+    const el = document.querySelector(`input[name="cranium-width"][value="${settings.craniumWidth}"]`);
+    if (el) el.checked = true;
+  }
+  if (settings.jawHeight) {
+    const el = document.querySelector(`input[name="jaw-height"][value="${settings.jawHeight}"]`);
+    if (el) el.checked = true;
+  }
+  // Set grayShades to match the selected palette
+  const selectedPalette = document.querySelector('input[name="palette"]:checked').value;
+  grayShades = palettes[selectedPalette];
+}
+
 function setup() {
   let canvas = createCanvas(900, 620); // Increased height for a taller canvas
   canvas.parent('sketch-holder');
   window.randomizeSkull = randomizeSkullsGrid;
 
-  // Attach event listeners for radio groups
-  ['jaw-height', 'cranium-width', 'cranium-height', 'teeth-count'].forEach(name => {
+  // Attach event listeners for all radio groups and palette
+  ['palette', 'teeth-count', 'cranium-height', 'cranium-width', 'jaw-height'].forEach(name => {
     document.querySelectorAll(`input[name="${name}"]`).forEach(radio => {
-      radio.addEventListener('change', randomizeSkullsGrid);
+      radio.addEventListener('change', () => {
+        saveSettings();
+        // Update grayShades if palette changed
+        if (name === 'palette') {
+          grayShades = palettes[radio.value];
+        }
+        randomizeSkullsGrid();
+      });
     });
   });
 
-  // Palette radio buttons
-  document.querySelectorAll('input[name="palette"]').forEach(radio => {
-    radio.addEventListener('change', () => {
-      const selected = document.querySelector('input[name="palette"]:checked').value;
-      grayShades = palettes[selected];
-      randomizeSkullsGrid();
-    });
-  });
-
+  // Restore settings on load
+  restoreSettings();
   randomizeSkullsGrid();
 }
 
