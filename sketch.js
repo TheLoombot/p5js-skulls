@@ -93,7 +93,7 @@ function drawRandomSkull(centerX, centerY, skullW, skullH) {
   let featureChoices = grayShades.filter(c => c !== skullBaseColor);
   skullFeatureColor = random(featureChoices);
   // Randomize outline width
-  outlineWidth = random(5, 15);
+  outlineWidth = random(2);
   // Randomize overall skull size
   let scaleH = random(0.8, 1.2);
   let scaleW = random(0.8, 1.2);
@@ -202,21 +202,22 @@ function drawAbstractSkull(centerX = width/2, centerY = height/2, crackParams = 
   noStroke();
   // Pick outline color (different from base and feature colors)
   let outlineChoices = grayShades.filter(c => c !== skullBaseColor && c !== skullFeatureColor);
-  let outlineColor = random(outlineChoices);
-  
-  // Draw outline ellipses (slightly larger and behind)
-  fill(outlineColor);
-  ellipse(centerX, centerY - 40, craniumW + outlineWidth, craniumH + outlineWidth); // Cranium outline
-  // Jaw outline: random ellipse or rect
+  let outlineColor = random(outlineChoices); // Drop shadow color and offset
+  let shadowColor = outlineColor;
+  let shadowOffsetX = 5;
+  let shadowOffsetY = 5;
+  // Jaw shape randomization
   let useRectJaw = random([true, false]);
+  // Draw drop shadow shapes (slightly larger and behind, offset)
+  fill(shadowColor);
+  ellipse(centerX + shadowOffsetX, centerY - 40 + shadowOffsetY, craniumW + outlineWidth, craniumH + outlineWidth);
   if (useRectJaw) {
     rectMode(CENTER);
-    rect(centerX, centerY + 40, jawW + outlineWidth, jawH + outlineWidth, 16);
+    rect(centerX + shadowOffsetX, centerY + 40 + shadowOffsetY, jawW + outlineWidth, jawH + outlineWidth, 16);
     rectMode(CORNER);
   } else {
-    ellipse(centerX, centerY + 40, jawW + outlineWidth, jawH + outlineWidth); // Jaw outline ellipse
+    ellipse(centerX + shadowOffsetX, centerY + 40 + shadowOffsetY, jawW + outlineWidth, jawH + outlineWidth);
   }
-  
   // Original skull shapes
   fill(skullBaseColor);
   ellipse(centerX, centerY - 40, craniumW, craniumH);
